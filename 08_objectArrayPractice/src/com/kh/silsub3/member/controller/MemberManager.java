@@ -145,9 +145,6 @@ public class MemberManager {
 		}
 	}
 	
-	//Q. 회원 등록 후 회원을 삭제하고 회원 조회에서 그 삭제한 회원을 조회했을 때 nullException 오류
-	//-> 중간 인덱스에 있는 회원을 삭제했을 때 생기는 문제 같음!!
-	// 그럼 중간 인덱스의 정보를 삭제했을 때 뒤에 있는 정보를 앞으로 끌어와야 할듯?
 	public void deleteMember() {
 		System.out.println("삭제할 회원명을 입력하세요.");
 		String name = sc.next();
@@ -155,6 +152,9 @@ public class MemberManager {
 		for (int i=0 ; i<memberCount ; i++) {
 			if (marr[i].getName().equals(name)) {
 				marr[i] = null;
+				for (int j=i ; j<memberCount-1 ; j++) {
+					marr[j] = marr[j+1];
+				}
 				memberCount--;
 				flag = true;
 				break;
